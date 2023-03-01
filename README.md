@@ -1,4 +1,4 @@
-<h1 align="center"> API REST - Gestor de usuarios</h1>
+<h1 align="center"> API REST - Pasarela de pago en Nodejs</h1>
 
 ## Tabla de contenidos:
 
@@ -7,7 +7,7 @@
 -   [Descripción y contexto](#descripción-y-contexto)
 -   [Guía de usuario](#guía-de-usuario)
 -   [Guía de instalación](#guía-de-instalación)
--   [Simultaniedad de los usuarios en tiempo real](#simultaniedad-de-los-usuarios-en-tiempo-real)
+-   [Example del procedimiento](#example-del-procedimiento)
 
 ## Descripción y contexto
 
@@ -15,7 +15,7 @@
 
 API REST:
 
-Validaciones del lado servidor, autenticacion y autorizacion con jwt(Json Web Token), vigencia del token 24h, control de los afiliados y referencia
+Validaciones del lado servidor.
 
 ## Guía de usuario
 
@@ -35,25 +35,20 @@ La API REST y el sistema servidor cumple con ciertos requisitos indispensables p
 
 Guía de instalación:
 
--   Crear la base de datos
 -   LLenar las variables de entorno:
 
 ```
     PORT: Puerto del hosting
-    HOST: Hosting, local donde sera almacenada la API
-    USER: Usuario de la base de datos
-    PASS: Password de la base de datos
-    DB_MYSQL: Nombre de la base de datos
-    DB_PORT: Puerto de la base de datos
-    EMAIL: Correo electronico del administrador del sistema
-    PASSWORD: Password del administrador del sistema
-    KEY_SECRET: Caracteres especiales secretos para el encriptado del token
-    HOSTING: URL donde se encuentra el servidor example(http://localhost:PORT/) <== url local
+    PAYPAL_DEV: true(para testear las tranferencias, entorno de prueba), false(para produccion, api de paypal)
+    PAYPAL_CLIENT_ID: Credenciales Id de la cuenta que recibira los pagos
+    PAYPAL_SECRET: Credenciales password de la cuenta que recibira los pagos
+    HOSTING: URL Donde se encuentra el servidor example(http://localhost:PORT/) <== url local
+    LANDING_PAGE: Pagina portada
 ```
 
 -   Comandos para correr el proyecto
 
-Descarga de dependencias
+Descarga de dependencias para el funcionamiento del sistema
 
 ```
 npm install
@@ -77,8 +72,13 @@ Servidor de produccion
 npm run start
 ```
 
-## Simultaniedad de los usuarios en tiempo real
+## Example del procedimiento
 
 ---
 
-Endpoint: "{HOSTING}/": Simple contador de las visitas y usuarios conectados simultaneamente
+Endpoint: "{HOSTING}/": Simple button checkout que envia un cuerpo JSON a la url({HOST:PORT}/)
+Obtien:
+URL: Proceso de pago generado con la API de PayPal
+URL: Si es aceptado el pago se abrira una pagina de aceptado
+URL: Si es cancelado se abrira el la pagina HOME
+En "payments.txt"(persistencia de los pagos realizados).
