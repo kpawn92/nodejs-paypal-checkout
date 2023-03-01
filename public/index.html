@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>company.com</title>
+    </head>
+    <body style="text-align: center">
+        <code>
+            Send by form: <br> example: { currency_code: 'EUR', value: '126.36', } <br> <br>
+        </code>
+        <button id="checkout">Checkout</button>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <script>
+            const checkout = document.querySelector('#checkout');
+            checkout.addEventListener('click', async () => {
+                const data = await axios.post('/create-order', {
+                    currency_code: 'EUR',
+                    value: '126.36',
+                });
+                console.log(data.data);
+
+                window.location.href = data.data.links[1].href;
+            });
+        </script>
+    </body>
+</html>
